@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/saranf/moomoo_contract/issues"
   },
-  "homepage": "https://github.com/saranf/moomoo_contract#readme"
+  "homepage": "https://github.com/saranf/moomoo_contract#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
