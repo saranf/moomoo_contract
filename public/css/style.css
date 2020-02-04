@@ -15,10 +15,18 @@
     margin:0;
 }
 
-.cell {
+.cell   {
     display: table-cell;
     padding: 3px;
     outline: 1px solid rgb(0, 0, 0);
     width: calc(100/6);
+    
+}
+
+.cell   {
+    display: table-cell;
+    padding: 3px;
+    outline: 1px solid rgb(0, 0, 0);
+    width: calc(100/7);
     
 }
