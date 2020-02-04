@@ -3,6 +3,7 @@
     <title>moomoo_contrace</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="/javascript/main_table.js"></script>
+    <script src="/javascript/firebase_config.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
 
@@ -20,7 +21,7 @@
             <span>계약서 저장</span>
         </div>
         <div class="row" >
-            <span class="cell" >계약서</span>
+            <span class="cell">계약서</span>
             <span class="cell">계약명</span>
             <span class="cell">계약금액</span>
             <span class="cell">회사명</span>
@@ -29,11 +30,11 @@
             <span class="cell">저장</span>
         </div> 
         <div class="row" id ="row">
-            <span class="cell" ><input type="file"></span>
-            <span class="cell"><input type="text"></span>
-            <span class="cell"><input type="text"></span>
-            <span class="cell"><input type="text"></span>
-            <span class="cell"> 
+            <span class="cell" id ="contract"><input type="file"></span>
+            <span class="cell" id ="contract_Name"><input type="text"></span>
+            <span class="cell" id ="contract_amount"><input type="text"></span>
+            <span class="cell" id ="company_Name"><input type="text"></span>
+            <span class="cell" id ="contract_method"> 
                     <select name="Contract" id="Contract">
                         <option value="">계약방식 선택</option>
                         <option value="월지급방식">월지급방식</option>
@@ -41,7 +42,7 @@
                     </select>
             </span>
             <span class="cell"><input type="date" id="first_date"> ~ <input type="date" id="last_date"></span>
-            <span class="cell"><button type="submit">submit</button></span>
+            <span class="cell"><button type="submit" onclick="javascript:database_submit()">submit</button></span>
         </div> 
     </div>
     <input type="button" value="+" onclick="javascript:row_add()">
@@ -49,33 +50,40 @@
 </body>
 
 <script>
-    // Initialize Firebase
+
+     // Initialize Firebase
     var config = {
-          apiKey: "AIzaSyDUk8HYC_3IkeQjwMls3uwjUMEUddrZdWI",
-          authDomain: "friendlychat-91ce7.firebaseapp.com",
-          databaseURL: "https://friendlychat-91ce7.firebaseio.com",
-          projectId: "friendlychat-91ce7",
-          storageBucket: "friendlychat-91ce7.appspot.com",
-          messagingSenderId: "374289931064",
-          appId: "1:374289931064:web:01edce5a17550090d0bfcd",
-          measurementId: "G-S6CB7GYDF0"
-      };
+        apiKey: "AIzaSyDUk8HYC_3IkeQjwMls3uwjUMEUddrZdWI",
+        authDomain: "friendlychat-91ce7.firebaseapp.com",
+        databaseURL: "https://friendlychat-91ce7.firebaseio.com",
+        projectId: "friendlychat-91ce7",
+        storageBucket: "friendlychat-91ce7.appspot.com",
+        messagingSenderId: "374289931064",
+        appId: "1:374289931064:web:01edce5a17550090d0bfcd",
+        measurementId: "G-S6CB7GYDF0"
+    };
     firebase.initializeApp(config);
     
-    var newPostKey = firebase.database().ref().child('posts').push().key;
+    function database_submit(){
+        var newPostKey = firebase.database().ref().child('posts').push().key;
   
-    var postData = {
-      brdno: newPostKey,
-      brdwriter: "홍길동",
-       brdtitle: "게시판 제목", 
-       brdmemo: "게시물 내용", 
-       brddate: Date.now()
-    };
-  
-    var updates = {};
-    updates['/board/' + newPostKey] = postData;
-  
-    firebase.database().ref().update(updates);
+        var postData = {
+            brdno: newPostKey,
+            contract:  document.getElementById('contract'),
+            contract_Name : document.getElementById('contract_Name'),
+            contract_amount : document.getElementById('contract_amount'),
+            company_Name : document.getElementById('company_Name'),
+            contract_method : document.getElementById('Contract'),
+            first_date : document.getElementById('first_date'),
+            last_date : document.getElementById('last_date')
+        };
+
+        var updates = {};
+        updates['/board/' + newPostKey] = postData;
+
+        firebase.database().ref().update(updates);
+    }
+   
             
   </script>
     
