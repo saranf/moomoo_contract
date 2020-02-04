@@ -3,7 +3,7 @@
     <title>moomoo_contrace</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="/javascript/main_table.js"></script>
-    <script src="/javascript/firebase_config.js"></script>
+    
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
 
@@ -30,12 +30,12 @@
             <span class="cell">저장</span>
         </div> 
         <div class="row" id ="row">
-            <span class="cell" id ="contract"><input type="file"></span>
-            <span class="cell" id ="contract_Name"><input type="text"></span>
-            <span class="cell" id ="contract_amount"><input type="text"></span>
-            <span class="cell" id ="company_Name"><input type="text"></span>
-            <span class="cell" id ="contract_method"> 
-                    <select name="Contract" id="Contract">
+            <span class="cell" ><input type="file" id ="contract"></span>
+            <span class="cell" ><input type="text" id ="contract_Name"></span>
+            <span class="cell" ><input type="text" id ="contract_amount"></span>
+            <span class="cell" ><input type="text" id ="company_Name"></span>
+            <span class="cell" > 
+                    <select name="Contract" id="contract_select">
                         <option value="">계약방식 선택</option>
                         <option value="월지급방식">월지급방식</option>
                         <option value="선지급방식">선지급방식</option>
@@ -64,18 +64,19 @@
     };
     firebase.initializeApp(config);
     
+    var newPostKey = firebase.database().ref().child('posts').push().key;
+
     function database_submit(){
-        var newPostKey = firebase.database().ref().child('posts').push().key;
-  
+        
         var postData = {
             brdno: newPostKey,
             contract:  document.getElementById('contract'),
-            contract_Name : document.getElementById('contract_Name'),
-            contract_amount : document.getElementById('contract_amount'),
-            company_Name : document.getElementById('company_Name'),
-            contract_method : document.getElementById('Contract'),
-            first_date : document.getElementById('first_date'),
-            last_date : document.getElementById('last_date')
+            contract_Name : document.getElementById('contract_Name').value,
+            contract_amount : document.getElementById('contract_amount').value,
+            company_Name : document.getElementById('company_Name').value,
+            contract_method : document.getElementById('contract_select').value,
+            first_date : document.getElementById('first_date').value,
+            last_date : document.getElementById('last_date').value
         };
 
         var updates = {};
