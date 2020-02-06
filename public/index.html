@@ -66,11 +66,26 @@
     
     var newPostKey = firebase.database().ref().child('posts').push().key;
 
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
+
+    // Create a reference to ocument.getElementById('contract').value
+    var mountainsRef = storageRef.child(document.getElementById('contract').value);
+
+    // Create a reference to 'images/mountains.jpg'
+    var mountainImagesRef = storageRef.child(document.getElementById('contract').value);
+
+    // While the file names are the same, the references point to different files
+    mountainsRef.name === mountainImagesRef.name            // true
+    mountainsRef.fullPath === mountainImagesRef.fullPath    // false
+        
+
+
     function database_submit(){
         
         var postData = {
             brdno: newPostKey,
-            contract:  document.getElementById('contract'),
+            contract:  document.getElementById('contract').value,
             contract_Name : document.getElementById('contract_Name').value,
             contract_amount : document.getElementById('contract_amount').value,
             company_Name : document.getElementById('company_Name').value,
