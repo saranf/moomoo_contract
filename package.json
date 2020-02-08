@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/saranf/moomoo_contract#readme",
   "dependencies": {
-    "aws-sdk": "^2.612.0",
+    "aws-sdk": "^2.614.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "firebase": "^7.8.0"
+    "firebase": "^7.8.0",
+    "requirejs": "^2.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0"
   }
 }

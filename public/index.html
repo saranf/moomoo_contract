@@ -3,6 +3,8 @@
     <title>moomoo_contrace</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="/javascript/main_table.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.612.0.min.js"></script>
+    <!--<script src='js/require.js'></script>-->
     
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
@@ -64,28 +66,14 @@
     };
     firebase.initializeApp(config);
     
-    var newPostKey = firebase.database().ref().child('posts').push().key;
 
-    // Create a root reference
-    var storageRef = firebase.storage().ref();
-
-    // Create a reference to ocument.getElementById('contract').value
-    var mountainsRef = storageRef.child(document.getElementById('contract').value);
-
-    // Create a reference to 'images/mountains.jpg'
-    var mountainImagesRef = storageRef.child(document.getElementById('contract').value);
-
-    // While the file names are the same, the references point to different files
-    mountainsRef.name === mountainImagesRef.name            // true
-    mountainsRef.fullPath === mountainImagesRef.fullPath    // false
         
 
 
     function database_submit(){
-        
-        var postData = {
-            brdno: newPostKey,
-            contract:  document.getElementById('contract').value,
+        console.log(document.getElementById('contract').value);
+        var postData = {     
+            contract:  document.getElementById('contract').value.split('\\').pop().toLowerCase(),
             contract_Name : document.getElementById('contract_Name').value,
             contract_amount : document.getElementById('contract_amount').value,
             company_Name : document.getElementById('company_Name').value,
@@ -95,12 +83,14 @@
         };
 
         var updates = {};
-        updates['/board/' + newPostKey] = postData;
+        updates['/board/' ] = postData;
 
         firebase.database().ref().update(updates);
     }
-   
+   //----------------------------------------------------------------------------------------------------
             
+   
+  
   </script>
     
 
